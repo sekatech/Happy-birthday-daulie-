@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎂 Happy Birthday, Daulie! 🎉</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            color: #fff;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;700&display=swap');
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+
+        .photo-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .photo-gallery img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+
+        .photo-gallery img:hover {
+            transform: scale(1.05) rotate(5deg);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .countdown {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            backdrop-filter: blur(5px);
+        }
+
+        #timer {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        #timer span {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 10px 15px;
+            border-radius: 8px;
+            min-width: 80px;
+            display: inline-block;
+        }
+
+        .music-player {
+            margin: 30px 0;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        .birthday-card {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .birthday-card::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
+            background-size: 400% 400%;
+            z-index: -1;
+            animation: gradientBG 15s ease infinite;
+            border-radius: 20px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .balloon {
+            position: absolute;
+            width: 40px;
+            height: 50px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .balloon::before {
+            content: "";
+            position: absolute;
+            width: 2px;
+            height: 100px;
+            background: #333;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .balloon:nth-child(2) {
+            background: #48dbfb;
+            left: 15%;
+            top: 30%;
+            animation-delay: 1s;
+        }
+
+        .balloon:nth-child(3) {
+            background: #1dd1a1;
+            right: 20%;
+            top: 40%;
+            animation-delay: 2s;
+        }
+
+        .balloon:nth-child(4) {
+            background: #feca57;
+            left: 25%;
+            top: 60%;
+            animation-delay: 3s;
+        }
+
+        .balloon:nth-child(5) {
+            background: #ff9ff3;
+            right: 15%;
+            top: 70%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(5deg); }
+            50% { transform: translateY(-50px) rotate(-5deg); }
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            #timer {
+                flex-direction: column;
+                gap: 5px;
+            }
+            #timer span {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="confetti"></canvas>
+    
+    <!-- Floating Balloons -->
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🎉 Happy Birthday, Daulie! 🎂</h1>
+            <p class="subtitle">Wishing you the most magical day ever! ✨</p>
+        </div>
+
+        <div class="photo-gallery">
+            <!-- Replace these with actual images of Daulie -->
+            <img src="https://via.placeholder.com/200x200/ff6b6b/ffffff?text=Daulie+1" alt="Daulie">
+            <img src="https://via.placeholder.com/200x200/48dbfb/ffffff?text=Daulie+2" alt="Daulie">
+            <img src="https://via.placeholder.com/200x200/1dd1a1/ffffff?text=Daulie+3" alt="Daulie">
+        </div>
+
+        <div class="countdown">
+            <h2>🎂 Party Starts In... 🎊</h2>
+            <div id="timer">
+                <div><span id="days">00</span><br>Days</div>
+                <div><span id="hours">00</span><br>Hours</div>
+                <div><span id="minutes">00</span><br>Minutes</div>
+                <div><span id="seconds">00</span><br>Seconds</div>
+            </div>
+        </div>
+
+        <div class="music-player">
+            <h2>🎵 Birthday Playlist 🎶</h2>
+            <audio controls autoplay loop>
+                <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+
+        <div class="birthday-card">
+            <h2>💌 A Special Message For You</h2>
+            <p>Dear Daulie,</p>
+            <p>On your special day, I hope you're surrounded by joy, laughter, and all the people you love most!</p>
+            <p>May this year bring you endless happiness, exciting adventures, and dreams that come true.</p>
+            <p>You're an amazing person who deserves the absolute best. Enjoy every moment of your special day!</p>
+            <p>With lots of love,</p>
+            <p>[Your Name]</p>
+        </div>
+    </div>
+
+    <script>
+        // Confetti Animation
+        const canvas = document.getElementById('confetti');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const confettiPieces = [];
+        const colors = ['#ff9ff3', '#feca57', '#ff6b6b', '#48dbfb', '#1dd1a1'];
+
+        class Confetti {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height - canvas.height;
+                this.size = Math.random() * 10 + 5;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.speed = Math.random() * 3 + 1;
+                this.angle = Math.random() * 360;
+                this.spin = Math.random() < 0.5 ? -1 : 1;
+                this.shape = Math.random() > 0.5 ? 'circle' : 'rect';
+            }
+
+            update() {
+                this.y += this.speed;
+                this.angle += 0.1 * this.spin;
+                if (this.y > canvas.height) {
+                    this.y = 0;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle * Math.PI / 180);
+                ctx.fillStyle = this.color;
+                
+                if (this.shape === 'circle') {
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.size/2, 0, Math.PI * 2);
+                    ctx.fill();
+                } else {
+                    ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+                }
+                
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < 150; i++) {
+            confettiPieces.push(new Confetti());
+        }
+
+        function animateConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            confettiPieces.forEach(piece => {
+                piece.update();
+                piece.draw();
+            });
+            requestAnimationFrame(animateConfetti);
+        }
+        animateConfetti();
+
+        // Countdown Timer - Set to Daulie's birthday (month is 0-indexed, so 11 = December)
+        function updateCountdown() {
+            const now = new Date();
+            const birthday = new Date(now.getFullYear(), 11, 25); // December 25th - CHANGE THIS!
+            if (now > birthday) {
+                birthday.setFullYear(birthday.getFullYear() + 1);
+            }
+            const diff = birthday - now;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Balloon animation
+        document.addEventListener('mousemove', function(e) {
+            const balloons = document.querySelectorAll('.balloon');
+            balloons.forEach(balloon => {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                balloon.style.transform = `translate(${x * 20 - 10}px, ${y * 20 - 10}px)`;
+            });
+        });
+
+        // Typewriter effect for birthday message
+        const message = document.querySelector('.birthday-card p:nth-child(2)');
+        if (message) {
+            const text = message.textContent;
+            message.textContent = '';
+            let i = 0;
+            const typing = setInterval(() => {
+                if (i < text.length) {
+                    message.textContent += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typing);
+                }
+            }, 50);
+        }
+    </script>
+</body>
+</html>
